@@ -1,15 +1,33 @@
 import "./Header.scss";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import { NavLink } from "react-router-dom";
 const Header = () => {
   return (
     <>
-      <div className="topnav">
-        <a className="active" href="/">
-          Home
-        </a>
-        <a href="/news">News</a>
-        <a href="/contact">Contact</a>
-        <a href="/about">About</a>
-      </div>
+      <Navbar expand="lg" className="bg-body-tertiary">
+        <Container>
+          <Navbar.Brand href="/">React-Bootstrap</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <NavLink to="/" className="nav-link">
+                Home
+              </NavLink>
+              <NavLink to="/about" className="nav-link">
+                About
+              </NavLink>
+            </Nav>
+            <Nav>
+              <NavDropdown title="Settings" id="basic-nav-dropdown">
+                <NavDropdown.Item href="/login">Login</NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
     </>
   );
 };
