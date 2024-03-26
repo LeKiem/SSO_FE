@@ -3,15 +3,20 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { doLogOut } from "../../redux/action/accountAction";
 const Header = () => {
   const handleLogin = () => {
-    // navigate(`${process.env.REACT_APP_BACKEND_SSO}`);
-    window.location.href = `${process.env.REACT_APP_BACKEND_SSO}?serviceURL=${process.env.REACT_APP_SERVICE_URL}`;
+    // navigate(`${process.env.REACT_APP_BACKEND_SSO_LOGIN}`);
+    window.location.href = `${process.env.REACT_APP_BACKEND_SSO_LOGIN}?serviceURL=${process.env.REACT_APP_SERVICE_URL}`;
   };
   const user = useSelector((state) => state.account.userInfo);
-  const handleLogout = () => {};
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(doLogOut());
+  };
   return (
     <>
       <Navbar expand="lg" className="bg-body-tertiary">

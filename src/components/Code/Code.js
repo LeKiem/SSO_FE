@@ -11,9 +11,7 @@ const Code = (props) => {
   const dispatch = useDispatch();
   const message = useSelector((state) => state.account.errMessage);
   const user = useSelector((state) => state.account.userInfo);
-  if (user && user.access_token) {
-    navigate("/");
-  }
+
   useEffect(() => {
     const ssoToken = searchParams.get("ssoToken");
     if (ssoToken && firstRunRef.current === false) {
@@ -21,6 +19,12 @@ const Code = (props) => {
       dispatch(doLogin(ssoToken));
     }
   }, []);
+
+  useEffect(() => {
+    if (user && user.access_token) {
+      navigate("/");
+    }
+  }, [user]);
   return (
     <>
       <div className="container">
@@ -31,7 +35,7 @@ const Code = (props) => {
                 {" "}
                 Please do login again. CLick here to
                 <a
-                  href={`${process.env.REACT_APP_BACKEND_SSO}?serviceURL=${process.env.REACT_APP_SERVICE_URL}`}
+                  href={`${process.env.REACT_APP_BACKEND_SSO_LOGIN}?serviceURL=${process.env.REACT_APP_SERVICE_URL}`}
                 >
                   Login
                 </a>
