@@ -1,16 +1,29 @@
 import axios from "axios";
+// import store from '../redux/store'
+let store;
 
+export const injectStore = (_store) => {
+  store = _store;
+};
 // Set config defaults when creating the instance
 const instance = axios.create({
   //   baseURL: 'https://api.example.com'
   withCredentials: true,
 });
 
+// const reduxState = store.getState();
 // Alter defaults after instance has been created
-// instance.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 // Add a request interceptor
 instance.interceptors.request.use(
   function (config) {
+    // console.log(store.getState());
+    let headerToken = store.getState()?.account?.userInfo?.access_token ?? "";
+    console.log(store.getState().account.userInfo);
+    if (headerToken) {
+      instance.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${headerToken}`;
+    }
     // Do something before request is sent
     return config;
   },
@@ -36,4 +49,5 @@ instance.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
 export default instance;

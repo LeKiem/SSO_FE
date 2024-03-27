@@ -18,7 +18,7 @@ export const doLogin = (ssoToken) => {
         // { withCredentials: true }
       )
       .then((res) => {
-        console.log(">>>> res", res);
+        // console.log(">>>> res", res);
         if (res && +res.EC === 0) {
           dispatch({ type: USER_LOGIN_SUCCESS, user: res.DT });
         } else {
@@ -42,7 +42,7 @@ export const doGetAccount = () => {
         // {withCredentials: true}
       )
       .then((res) => {
-        console.log(">>>> res", res);
+        // console.log(">>>> res", res);
         if (res && +res.EC === 0) {
           dispatch({ type: USER_LOGIN_SUCCESS, user: res.DT });
         } else {
@@ -71,6 +71,7 @@ export const doLogOut = () => {
         console.log(">>>> res", res);
         if (res && +res.EC === 0) {
           dispatch({ type: USER_LOGOUT_SUCCESS });
+          window.location.href = "/";
         } else {
           //   setMessage(res.EM);
           dispatch({ type: USER_LOGOUT_FAILED, error: res.EM });
